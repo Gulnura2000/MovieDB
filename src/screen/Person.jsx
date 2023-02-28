@@ -24,16 +24,16 @@ const Person = () => {
     return (
         <div>
             <Header />
-            <div className="col-lg-10 mx-auto " >
+            <div className=" col-11 col-md-11 col-lg-10 mx-auto " >
                 <div className="row">
                     {person != null ? person.map(i => <>
 
-                        <div className="col-md-4 col-lg-2 mx-3 my-4  block ">
-                         <a href={"/persondetail/"+i.id}>
-                         <img src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${i.profile_path}`} width={'100%'} alt="" />
-                            <h5 className="my-2" > {i.name} </h5></a>   
+                        <div className="col-5 person col-md-4 col-lg-2 mx-3 my-4  block ">
+<a href={"/persondetail/" + i.id}>
+                            <img src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${i.profile_path}`} width={'100%'} alt="" />
+                            <h5 className="my-2" > {i.name} </h5></a>
                         </div>
-
+                        
                     </>) : <></>}
                 </div>
             </div>

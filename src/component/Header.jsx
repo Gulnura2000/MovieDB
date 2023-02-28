@@ -12,29 +12,38 @@ const Header = () => {
   const [searchstate, setSearchState] = useState(null)
   const [moviSearch, setmovirSearch] = useState(null)
   const [personSearch, setPersonSearch] = useState(null)
+  // let chek = ()=>{
+  //    if(inp.length < 2){
+  //   setSearchState(null)
+  // }
+  // }
+ 
   const searchF = async () => {
     let apikey = '3cc05ada7e70628b8d1bf36e4d1f6fd7&'
     let seacrData = await axios({
       url: `https://api.themoviedb.org/3/search/multi?api_key=${apikey}&language=ru-RU&query=${inp}&page=1&include_adult=false`
     })
-
+   
     // console.log(seacrData, 'search');
     // setSearchState(seacrData.data.results)
-
-    if (seacrData != null) {
-      setSearchState(seacrData.data.results)
-    let movie = seacrData.data.results.filter(i => i.media_type  == 'movie'  )
-    setmovirSearch(movie)
-    }
-    let person = seacrData.data.results.filter(i => i.media_type  == 'person'  )
-   setPersonSearch(person)
-    }
+   
+      if (seacrData != null) {
+        setSearchState(seacrData.data.results)
+      let movie = seacrData.data.results.filter(i => i.media_type  == 'movie'  )
+      setmovirSearch(movie)
+      let person = seacrData.data.results.filter(i => i.media_type  == 'person'  )
+      setPersonSearch(person)
+      }
+   
+      
+    
+  }
 // console.log(personSearch, 'person');
   
 
 
   return (
-    <div>
+    <div  className='col-12 mx-auto' >
     <Navbar data-aos="zoom-out" style={{ "background": "#0d253f" }} expand="lg">
       <Container >
         <Navbar.Brand style={{ "color": "white" }} href="#">

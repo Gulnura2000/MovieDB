@@ -2,7 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import Header from "../component/Header"
-
+import { Skeleton } from 'antd';
 const MovieDetail = () => {
     const [detail, setdetail] = useState()
     const [video, setvideo] = useState()
@@ -44,17 +44,17 @@ const MovieDetail = () => {
             }
         }
     }
-    let recomen = async() => {
+    let recomen = async () => {
         let recomenData = await axios({
-            url:`https://api.themoviedb.org/3/movie/${param.id}/recommendations?api_key=${apikey}&language=ru-RU&page=1`
+            url: `https://api.themoviedb.org/3/movie/${param.id}/recommendations?api_key=${apikey}&language=ru-RU&page=1`
         })
-        if(recomenData != null){
-            if(recomenData.status == 200){
+        if (recomenData != null) {
+            if (recomenData.status == 200) {
                 setrecomen(recomenData.data.results)
             }
         }
     }
- 
+
     useEffect(() => {
         deteiF();
         videiF();
@@ -64,81 +64,87 @@ const MovieDetail = () => {
 
     return (
         <div>
-            <Header/>
+            <Header />
             <div className="col-lg-11 mx-auto">
                 <div className="row mt-5 ">
-                <div className="col-lg-10 px-5 ">
-                    <div className="row">
-                        {detail != null ? <>
-                            <div className="col-lg-6">
-                                <img width={'90%'} height={'600px'} src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${detail.backdrop_path}`} alt="" />
-                            </div>
-                            <div className="col-lg-4">
-                                <h4> {detail.title} </h4>
-                                <p>{detail.overview}</p>
-                                <h6>{detail.popularity}</h6>
-                                <h6> {detail.release_date}</h6>
-                                <p> <h6> производственные компании : </h6>
+                    <div className="col-lg-10 px-5 ">
+                        <div className="row">
+                            {detail != null ? <>
+                                <div className="col-lg-6 detail">
+                                    <img width={'90%'} height={'600px'} src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${detail.backdrop_path}`} alt="" />
+                                </div>
+                                <div className="col-lg-4">
+                                    <h4> {detail.title} </h4>
+                                    <p>{detail.overview}</p>
+                                    <h6>{detail.popularity}</h6>
+                                    <h6> {detail.release_date}</h6>
+                                    <p> <h6> производственные компании : </h6>
 
-                                    {detail.production_companies
-                                        .map(i => <>
-                                            <img width={'50px'} className="rounded-5" height={'50px'} src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${i.logo_path}`} alt="" />
-                                            <span> {i.name} </span> <br /> <br />
-                                        </>)}
-                                </p>
+                                        {detail.production_companies
+                                            .map(i => <>
+                                                <img width={'50px'} className="rounded-5" height={'50px'} src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${i.logo_path}`} alt="" />
+                                                <span> {i.name} </span> <br /> <br />
+                                            </>)}
+                                    </p>
 
-                            </div>
-
-                        </> : 'loading'}
-
-                    </div> <br /> <br /> <br />
-
-                    {video != null ?
-                        video.map(i =>
-                            <>
-                            
-                                <div className="col-lg-12">
-                                    
-                                    <iframe width="100%" height="800" src={`https://www.youtube.com/embed/${i.key}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                 </div>
 
+                            </> : <Skeleton active />}
 
-                            </>) : <>loading</>}
+                        </div> <br /> <br /> <br />
+
+                        {video != null ?
+                            video.map(i =>
+                                <>
+
+                                    <div className="col-lg-12 video">
+
+                                        <iframe width="100%" height="800" src={`https://www.youtube.com/embed/${i.key}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                    </div>
+
+
+                                </>) : <><Skeleton active /></>}
 
 
 
-                </div>
-                <div className="col-lg-2 similarblock text-center ">
-                <h5>похожие фильмы</h5>
-                    {similar != null ?
-                        similar.map(i =>
-                            <>
-                                <img width={'100%'} height={'280px'} src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${i.poster_path}`} alt="" /> <br /> <br />
-
-                                <a href={"/detail/" + i.id}><h5>{i.title}</h5></a>
-                                <p>{i.release_date}</p>
-                            </>) : <> loading </>}
-                </div>
-            </div> 
-            <h4 className="mx-3 my-3 "  > Рекомендации</h4>
-            <div className="col-lg-12 scrollHome  text-center">    
-                {recomendate != null ?
-                    recomendate.map(i =>
-                        <>
-                      
-                        <div className="col-6 col-md-4 bg-light p-2 mx-2 block mt-3 mb-1 col-lg-2">
-                              <img width={'90%'} height = {'280px'} src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${i.poster_path}`} alt="" /> <br /> <br />
-    
-                              <a href={"/detail/"+i.id}><h5>{i.title}</h5></a>  
-                            <p>{i.release_date}</p>
+                    </div>
+                    <div className="col-11 col-md-10 mx-auto col-lg-2  text-center ">
+                        <h5>похожие фильмы</h5>
+                        <div className="similarblock  scrollHome2 px-2">
+                              {similar != null ?
+                            similar.map(i =>
+                                <>
+                                <div className="similarBox col-5 col-md-3 col-lg-12"><a href={"/detail/" + i.id}>
+                                    <img width={'100%'} height={'280px'} src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${i.poster_path}`} alt="" /> <br /> <br />
+                                    <h5>{i.title}</h5>
+                                    <p>{i.release_date}</p></a>
+                                </div> 
+                                </>) : <> <Skeleton active /> </>}
                         </div>
-                          
-                        </>
+                      
+                    </div>
+                </div>
+                <h4 className="mx-3 my-3 "  > Рекомендации</h4>
+                <div className="col-lg-12 scrollHome  text-center">
+                    {recomendate != null ?
+                        recomendate.map(i =>
+                            <>
 
-                    ) : <>loading</>}
-</div>
+                              
+                              <div className="col-6 col-md-4 bg-light p-2 mx-2 block mt-3 mb-1 col-lg-2">
+                                <a href={"/detail/" + i.id}  >
+                                    <img width={'90%'} height={'280px'} src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${i.poster_path}`} alt="" /> <br /> <br />
+
+                                   <h5>{i.title}</h5>
+                                    <p>{i.release_date}</p></a>
+                                </div>
+
+                            </>
+
+                        ) : <Skeleton active />}
+                </div>
             </div>
-           
+
 
         </div>
     )

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useEffect } from "react";
 import Sonnet from '../component/Sonnet';
 import Header from '../component/Header';
-
+import { Skeleton } from 'antd';
 const Top = ()=>{
     const [movie1, setmovie1] = useState()
     const [movie, setmovie] = useState(null)
@@ -50,28 +50,30 @@ const Top = ()=>{
             <Header/>
             <div data-aos="zoom-out" className=" col-6 mt-5 text-center mx-auto ">
          
-            <button onClick={() => movieF(2)} className='btn btn-outline-primary mx-3  ' >2</button>
-            <button onClick={() => movieF(3)} className='btn btn-outline-primary mx-3 ' >3</button>
-            <button onClick={() => movieF(4)} className='btn btn-outline-primary mx-3 ' >4</button>
-            <button onClick={() => movieF(5)} className='btn btn-outline-primary mx-3 ' >5</button>
-            <button onClick={() => movieF(6)} className='btn btn-outline-primary mx-3 ' >6</button>
-            <button onClick={() => movieF(7)} className='btn btn-outline-primary mx-3 ' >7</button>
+            <button onClick={() => movieF(2)} className='btn btn-outline-primary  mx-1 mx-md-2  mx-lg-3  ' >2</button>
+            <button onClick={() => movieF(3)} className='btn btn-outline-primary mx-1 mx-md-2 mx-lg-3 ' >3</button>
+            <button onClick={() => movieF(4)} className='btn btn-outline-primary  mx-1 mx-md-2 mx-lg-3 ' >4</button>
+            <button onClick={() => movieF(5)} className='btn btn-outline-primary  mx-1 mx-md-2 mx-lg-3 ' >5</button>
+            <button onClick={() => movieF(6)} className='btn btn-outline-primary  mx-1 mx-md-2 mx-lg-3 ' >6</button>
+            <button onClick={() => movieF(7)} className='btn btn-outline-primary  mx-1 mx-md-2 mx-lg-3 ' >7</button>
             </div>
            
-            <div className="col-12  ">
-                { state ?   <div className="col-lg-11 text-center mx-auto ">
+            <div className="col-12   ">
+                { state ?   <div className="col-lg-10  text-center mx-auto ">
                         <div className="row">
                             {movie != null ?
                                 movie.map(i =>
                                     <>
-                                        <div data-aos="zoom-out" className="col-6 col-md-4 block my-5 col-lg-2">
-                                            <img width={'80%'} height={'300px'} src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${i.poster_path}`} alt="" />
-                                            <h6>{i.title}</h6>
+                                    
+                                        <div data-aos="zoom-out" className="col-6 col-md-4 top block my-5 col-lg-2">
+                                            <a href={"/detail/"+i.id}>
+                                            <img width={'80%'} height={'280px'} src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${i.poster_path}`} alt="" />
+                                            <h6>{i.title}</h6> </a>
                                         </div>
-
+                                       
                                     </>
 
-                                ) : <>loading</>}
+                                ) : <><Skeleton active /></>}
                             <div className="col-3">
 
                             </div>
@@ -82,15 +84,18 @@ const Top = ()=>{
                         {movie1 != null ?
                             movie1.map(i =>
                                 <>
-                                    <div  className="col-6 block col-md-4  my-5 col-lg-2">
-                                        <img width={'80%'} height={'300px'} src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${i.poster_path}`} alt="" /> <br /> <br />
+                                
+                                    <div  className="col-6 top block col-md-4  my-5 col-lg-2">
+                                        <a href={"/detail/"+i.id}>
+                                        <img width={'80%'} height={'280px'} src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${i.poster_path}`} alt="" /> <br /> <br />
                             
                                         <h6>{i.title}</h6>
+                                        </a>
                                     </div>
 
                                 </>
 
-                            ) : <>loading</>}
+                            ) : <><Skeleton active /></>}
 
                     </div>
                 </div>}
